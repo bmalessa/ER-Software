@@ -1,6 +1,6 @@
 REM at minimum a JRE/JDK of version >= 1.8 - download it from "https://jdk.java.net" and point to your local installation
 REM or take the default JRE
-set JAVA_HOME=.\jre
+set JAVA_HOME=.\..\Java-JRE\jre_1.8.0-131
 
 REM this 3 jar files for Domain, Gui and Customized SWT-Componets must be available in classpath
 set PROJECT_JAR_FILES=Gui.jar;Domain.jar;CustomizedSWT.jar

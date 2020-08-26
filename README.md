@@ -1,2 +1,3 @@
 # ER-Software
-Gemeinnützige Software die im Engagierten Ruhestand erstellt wurde
+Dieses Repository beinhaltet gemeinnützige Software,  die während des "Engagierten Ruhestand" beim Prot-In Support e.V. erstellt wurde.
+

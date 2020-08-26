@@ -1,0 +1,60 @@
+{
+  "person": {
+    "name": "Mustermann",
+    "vorname": "Hans",
+    "anrede": "Herr",
+    "schwerbehindert": false,
+    "schwerbehindertBefore20001117": false,
+    "besondereAltersgrenze": false,
+    "besondereAltersgrenzeJahre": 0,
+    "dateOfBirth": "Jul 12, 1963, 12:00:00 AM",
+    "dateOfBirthString": "12.07.1963",
+    "dateOfRetirement": "Apr 30, 2020, 12:00:00 AM",
+    "dateOfRetirementString": "30.04.2020",
+    "dateOfRequestRetirement": null,
+    "dateOfRequestRetirementString": null,
+    "dateOfLegalRetirement": "Jul 31, 2018, 12:00:00 AM",
+    "dateOfLegalRetirementString": "31.07.2018",
+    "dateOfSubstantiation": "Aug 1, 1980, 12:00:00 AM",
+    "dateOfSubstantiationString": "01.08.1980",
+    "besoldung": {
+      "laufbahnOrdnung": "A",
+      "besoldungsGruppe": 12,
+      "besoldungsStufe": 8
+    },
+    "familienzuschlag": {
+      "stufe": 1,
+      "anzahlKinder": 0
+    },
+    "stellenzulage": null,
+    "amtszulage": null,
+    "sonstigeZulage": null
+  },
+  "typ": 3,
+  "anzwRecht": "Bund",
+  "timePeriods": [
+    {
+      "type": 2,
+      "startDate": "Sep 1, 1981, 12:00:00 AM",
+      "endDate": "Aug 31, 1983, 12:00:00 AM",
+      "factor": 1.0,
+      "ruhegehaltsfaehigeTage": 0,
+      "comments": []
+    },
+    {
+      "type": 1,
+      "startDate": "Sep 1, 1983, 12:00:00 AM",
+      "endDate": "Apr 30, 2020, 12:00:00 AM",
+      "factor": 1.0,
+      "ruhegehaltsfaehigeTage": 0,
+      "comments": []
+    }
+  ],
+  "ruhegehaltsSatz": 0.0,
+  "summeRuhegehaltsfaehigeDienstbezuege": 0.0,
+  "amtsabhaengigeMindestversorgung": 0.0,
+  "amtsunabhaengigeMindestversorgung": 0.0,
+  "abzugPflegeleistung": 0.0,
+  "kindererziehungsZuschlag": null,
+  "vergleichsberechnungBeamtVG_PARA_85": false
+}

@@ -2,6 +2,7 @@ package de.protin.support.pr.gui;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -49,9 +50,12 @@ public class PensionGUI {
 
 	private TabFolder tabFolder;
 	
+	private TabItem besoldungstabelle;
+	
 	private GrunddatenPart grunddaten;
 	private ZeitenPart zeiten;
 	private KindererziehungszeitenPart kez;
+	private BesoldungstabellePart besoldungstabellePart;
 	private RuhegehaltBerechnungPart rgBerechnung;
 	
 	private static PensionGUI instance;
@@ -197,7 +201,7 @@ public class PensionGUI {
 	    kindererziehung.setToolTipText("Kindererziehungszeiten");
 	    kindererziehung.setControl(getTabKindererziehung(tabFolder));
 	    
-	    TabItem besoldungstabelle = new TabItem(tabFolder, SWT.NONE);
+	    this.besoldungstabelle = new TabItem(tabFolder, SWT.NONE);
 	    besoldungstabelle.setText("Besoldungstabelle");
 	    besoldungstabelle.setToolTipText("Besoldungstabelle");
 	    besoldungstabelle.setControl(getBesoldungstabelle(tabFolder));
@@ -222,6 +226,13 @@ public class PensionGUI {
 	public KindererziehungszeitenPart getKez() {
 		return kez;
 	}
+	
+	
+	public BesoldungstabellePart getBesoldungstabelle() {
+		return besoldungstabellePart;
+	}
+	
+	
 
 
 	/**
@@ -255,9 +266,9 @@ public class PensionGUI {
 	
 	
 	  private Control getBesoldungstabelle(TabFolder tabFolder) {
-			BesoldungstabellePart besTab = new BesoldungstabellePart(tabFolder);
-			besTab.initPart(tabFolder);
-			return besTab.getPart();
+			this.besoldungstabellePart = new BesoldungstabellePart(tabFolder);
+			besoldungstabellePart.initPart(tabFolder);
+			return besoldungstabellePart.getPart();
 	  }
 	
 	
@@ -309,6 +320,17 @@ public class PensionGUI {
 			  ErrorDialog validationErrorDialog = new ErrorDialog(shells[0], "Validierung der Eingabedaten.", "Validierungsfehler vorhanden. Weitere Informationen unter \"Details\"", ms,  IStatus.ERROR);
 			  validationErrorDialog.open();
 			  return false;
+		  }
+		  
+		  //set content for tab "Besoldungstabelle" with respect for dateOfRetirement
+		  try {
+			  String dateOfRetirement = this.grunddaten.getTfRetirementDate().getText();
+			  IBesoldungstabelle besTab = BesoldungstabelleFactory.getInstance().getBesoldungstabelle(SelectionConstants.ANZUWENDENDES_RECHT_BUND, DateUtil.parseDateString(dateOfRetirement));
+			  this.besoldungstabellePart.setBesoldungstabelle(besTab);
+			  this.besoldungstabelle.setControl(besoldungstabellePart.getPart());
+		  }
+		  catch (ParseException ex) {
+			  ex.printStackTrace();
 		  }
 		  
 		  return true;
@@ -374,21 +396,29 @@ public class PensionGUI {
 		pension.setBesoldungstabelle(besoldungstabelle);
 		pension.setTimePeriods( this.zeiten.getTimePeriods());
 		
-		float aktuellenRentenwertWest = pension.getBesoldungstabelle().getAktuellenRentenwertWestForKindererziehungszuschlag();
-		pension.setKindererziehungsZuschlag(this.kez.getKindererziehungszuschlag(aktuellenRentenwertWest));
+		if(besoldungstabelle != null) {
+			float aktuellenRentenwertWest = pension.getBesoldungstabelle().getAktuellenRentenwertWestForKindererziehungszuschlag();
+			pension.setKindererziehungsZuschlag(this.kez.getKindererziehungszuschlag(aktuellenRentenwertWest));
+		}
 		
 		pension.setVergleichsberechnungBeamtVG_PARA_85(grunddaten.getCbVergleichsberechnungErforderlich().getSelection());
 		
 		return pension;
 	  }
 
-      
+       
       
      public void clear() {
     	 grunddaten.clear();
     	 zeiten.clear();
     	 kez.clear();
     	 rgBerechnung.clear();
+    	 
+    	 //wieder die aktuelle Besoldungstabelle anzeigen
+    	 IBesoldungstabelle besTab = BesoldungstabelleFactory.getInstance().getBesoldungstabelle(SelectionConstants.ANZUWENDENDES_RECHT_BUND, new Date());
+		 this.besoldungstabellePart.setBesoldungstabelle(besTab);
+		 this.besoldungstabelle.setControl(besoldungstabellePart.getPart());
+    	 
      }
      
      

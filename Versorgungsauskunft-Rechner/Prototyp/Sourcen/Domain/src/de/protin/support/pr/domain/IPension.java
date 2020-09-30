@@ -156,6 +156,12 @@ public interface IPension {
 	 */
 	float getAbzugPflegeleistung();
 
+	
+	/**
+	 * 
+	 * @return
+	 */
+	float getFaktorAbzugPflegeleistungNachBeamtVG_50_f();
 
 	/**
 	 * 

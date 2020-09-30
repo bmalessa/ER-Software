@@ -181,7 +181,7 @@ public class TestDienstunfall {
 		TimePeriodDetails calculateRuhegehaltsfaehigeDienstzeiten_Para_14 = objectUnderTest.calculateRuhegehaltsfaehigeDienstzeiten_Para_14();
 		calculateRuhegehaltsfaehigeDienstzeiten_Para_14.getYears();
 		assertEquals((int)calculateRuhegehaltsfaehigeDienstzeiten_Para_14.getYears(), 33);
-		assertEquals((int)calculateRuhegehaltsfaehigeDienstzeiten_Para_14.getDays(), 44);
+		assertEquals((int)calculateRuhegehaltsfaehigeDienstzeiten_Para_14.getDays(), 45);
 		
 		float calculateAbschlag_Para_14_BeamtVG = objectUnderTest.calculateAbschlag_Para_14_BeamtVG();
 		assertEquals((double)calculateAbschlag_Para_14_BeamtVG, (double)0.0f, 0.1);
@@ -203,7 +203,7 @@ public class TestDienstunfall {
 		assertEquals((double)pflegeLeistungAbzug, (double)47.70f, 0.1);
 		
 		float erdientesRuhegehalt = objectUnderTest.calculateErdientesRuhegehalt();
-		assertEquals((double)erdientesRuhegehalt, (double)3128.25f, 0.1);
+		assertEquals((double)erdientesRuhegehalt, (double)3128.28f, 0.1);
 		
 	}
 	

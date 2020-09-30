@@ -91,7 +91,7 @@ public class TestEngagierterRuhestand {
 		objectUnderTest.calculateRuhegehaltssatz_Para_14_1_Neue_Fassung();
 		
 		float erdientesRuhegehalt = objectUnderTest.calculateErdientesRuhegehalt();
-		assertEquals((double)erdientesRuhegehalt, (double)3650.19f, 0.1);
+		assertEquals((double)erdientesRuhegehalt, (double)3650.37f, 0.1);
 	}
 		
 	

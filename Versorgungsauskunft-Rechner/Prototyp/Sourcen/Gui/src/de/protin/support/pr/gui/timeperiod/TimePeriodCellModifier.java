@@ -1,4 +1,5 @@
 package de.protin.support.pr.gui.timeperiod;
+import java.text.ParseException;
 import java.util.Date;
 
 import org.eclipse.jface.viewers.ICellModifier;
@@ -108,14 +109,24 @@ public class TimePeriodCellModifier implements ICellModifier {
 				break;
 			case 2 : // Start Datum
 				if(((String)value).length() == 10) {
-					valueDate = DateUtil.getDate((String)value);
-					timePeriod.setStartDate(valueDate);
+					try {
+						valueDate = DateUtil.parseDateString((String)value);
+						timePeriod.setStartDate(valueDate);
+					}
+					catch (ParseException ex) {
+						//e.printStackTrace();
+					}
 				}
 				break;	
 			case 3 : // Start Datum
 				if(((String)value).length() == 10) {
-					valueDate = DateUtil.getDate((String)value);
-					timePeriod.setEndDate(valueDate);
+					try {
+						valueDate = DateUtil.parseDateString((String)value);
+						timePeriod.setEndDate(valueDate);
+					}
+					catch (ParseException ex) {
+						//e.printStackTrace();
+					}
 				}
 				break;	
 			case 4 : // Factor
@@ -127,19 +138,28 @@ public class TimePeriodCellModifier implements ICellModifier {
 					value = sFactor;
 				}
 				
-				float valueFloat = Float.parseFloat(((String)value));
-				if (timePeriod.getFactor() != valueFloat) {
-					timePeriod.setFactor(valueFloat);
+				
+				try {
+					float valueFloat = Float.parseFloat(((String)value));
+					if (timePeriod.getFactor() != valueFloat) {
+						timePeriod.setFactor(valueFloat);
+					}
+				} catch (NumberFormatException e) {
+					//e.printStackTrace();
 				}
 				break;
 			case 6 : // RGF/Tage
+				try {
 				int valueInt = Integer.parseInt(((String)value));
-				if (timePeriod.getRuhegehaltsfaehigeTage() != valueInt) {
-					timePeriod.setRuhegehaltsfaehigeTage(valueInt);
+					if (timePeriod.getRuhegehaltsfaehigeTage() != valueInt) {
+						timePeriod.setRuhegehaltsfaehigeTage(valueInt);
+					}
+				} catch (NumberFormatException e) {
+					//e.printStackTrace();
 				}
 				break;
 			default :
-			}
+		}
 		
 		tableViewer.getTimePeriodList().timePeriodChanged(timePeriod);
 	}

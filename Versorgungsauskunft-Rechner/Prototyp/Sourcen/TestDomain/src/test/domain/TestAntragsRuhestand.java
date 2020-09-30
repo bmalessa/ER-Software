@@ -222,7 +222,7 @@ public class TestAntragsRuhestand {
 	 * @param pension
 	 */
 	private void addKindererziehungsZuschlag(AntragsRuhestand pension) {	
-		KindererziehungszeitenZuschlag kindererziehungszuschlag = new KindererziehungszeitenZuschlag(pension.getBesoldungstabelle().getAktuellenRentenwertWestForKindererziehungszuschlag());
+		KindererziehungszeitenZuschlag kindererziehungszuschlag = new KindererziehungszeitenZuschlag();
 		Para_50_Kindererziehungszeit kind1 = new Para_50_Kindererziehungszeit("Kind 1", DateFactory.getDate("12.02.1991"), null, null, true);
 		Para_50_Kindererziehungszeit kind2 = new Para_50_Kindererziehungszeit("Kind 2", DateFactory.getDate("16.04.1994"), null, null, true);
 		kindererziehungszuschlag.addKindererziehungszeit(kind1, KindererziehungszeitenZuschlag.KEZ_VOR_1992);

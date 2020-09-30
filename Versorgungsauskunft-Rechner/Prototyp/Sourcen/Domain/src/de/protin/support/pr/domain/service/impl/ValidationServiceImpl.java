@@ -6,8 +6,10 @@ import java.util.Set;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import de.protin.support.pr.domain.IBesoldungstabelle;
 import de.protin.support.pr.domain.IPension;
 import de.protin.support.pr.domain.ITimePeriod;
+import de.protin.support.pr.domain.besoldung.tabelle.BesoldungstabelleFactory;
 import de.protin.support.pr.domain.besoldung.zuschlag.Para_50_Kindererziehungszeit;
 import de.protin.support.pr.domain.pension.AntragsRuhestand;
 import de.protin.support.pr.domain.pension.Dienstunfaehigkeit;
@@ -37,6 +39,12 @@ public class ValidationServiceImpl implements IValidationService {
 	@Override
 	public ValidationResult validate(IPension pension) {
 		ValidationResult validationResult = new  ValidationResult();
+		validationResult = validateSystemSetup(pension, validationResult);
+		if(!validationResult.isSuccess()) {
+			//in diesem Fall sofort aussteigen, da ansonsten unspezifiziertes Verhalten auftritt (NPE etc.)
+			return validationResult;
+		}
+			
 		validationResult = validateInput(pension, validationResult);
 		validationResult = validateGrunddaten(pension, validationResult);
 		validationResult = validateTimePeriods(pension, validationResult);
@@ -46,6 +54,16 @@ public class ValidationServiceImpl implements IValidationService {
 		return validationResult;
 	}
 	
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -82,7 +100,21 @@ public class ValidationServiceImpl implements IValidationService {
 
 	
 
-
+	/**
+	 * Validierung, ob im System alle erforderlichen Artefakte (gültige Besoldungstabelle etc. vorhanden sind); 
+	 * @param pension
+	 * @param validationResult
+	 * @return
+	 */
+	private ValidationResult validateSystemSetup(IPension pension, ValidationResult validationResult) {
+		IBesoldungstabelle besoldungstabelle = BesoldungstabelleFactory.getInstance().getBesoldungstabelle(pension.getAnzwRecht(), pension.getPerson().getDateOfRetirement());
+		if(besoldungstabelle == null) {
+			validationResult.addItem(new ValidationItem("Keine Besoldungstabelle für das angegebene Ruhestandsdatum " + 
+					PrintUtils.formatValue(pension.getPerson().getDateOfRetirement()) + 
+					" im System vorhanden."));
+		}
+		return validationResult;
+	}
 
 
 

@@ -6,6 +6,7 @@ import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
 
 import de.protin.support.pr.domain.Person;
+import de.protin.support.pr.domain.utils.DateUtil;
 import de.protin.support.pr.domain.utils.MonthCalculator;
 
 public class PersonFactory {
@@ -118,7 +119,13 @@ public class PersonFactory {
 		//Letzte Tag des Monats erechnen
 		Date ceilingDate = DateUtils.ceiling(calculatedDateOfLegalRetirement,Calendar.MONTH);
 		Date calculatedDateOfRetirement = DateUtils.addDays(ceilingDate, -1);
-		person.setDateOfRetirement(calculatedDateOfRetirement);
+		
+		if(calculatedDateOfRetirement.before(DateUtil.getDate("01.04.2020"))) {
+			person.setDateOfRetirement(DateUtil.getDate("01.04.2020"));
+		}
+		else {
+			person.setDateOfRetirement(calculatedDateOfRetirement);
+		}
 	}
 	
 	private Date calculateEndOfMonth(Date date) {

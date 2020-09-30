@@ -1,5 +1,6 @@
 package de.protin.support.pr.domain;
 
+import java.util.Date;
 import java.util.Map;
 
 import de.protin.support.pr.domain.besoldung.Amtszulage;
@@ -28,14 +29,24 @@ public interface IBesoldungstabelle {
 	
 	public abstract float getAktuellenRentenwertOstForKindererziehungszuschlag();
 	
-	public abstract float getMaxAbzugPflegeleistung();
-	
 	public Map<Integer, float[]> getBesoldungsOrdnungA();
 	
 	public Map<Integer, Float> getBesoldungsOrdnungB();
 	
 	public Map<String, Amtszulage[]> getAmtszulagen();
+	
+	public Date getValidFrom();
 
-	public abstract String print();
+	public Date getValidTo();
+	
+	public String getTitel();
+
+	public void setTitel(String titel);
+
+	public String getSubTitel();
+	
+	public void setSubTitel(String subTitel);
+
+	//public abstract String print();
 	
 }

@@ -7,7 +7,7 @@ public class Constants {
 	public final static float KORREKTURFAKTOR_PARA_69e_Abs_4_BeamtVG = 0.95667f;
 	
 	// Abzug nach 50f BeamtVG (Abzug für Pflegeleistung) beträgt ab 01.01.2019 1,525%, max 69,20€
-	public final static float FAKTOR_PARA_50f_BeamtVG = 1.525f;
+	//public final static float FAKTOR_PARA_50f_BeamtVG = 1.525f;
 	
 	public final static float VERSORGUNGSSATZ_MAX_PARA_14_Abs_1_BeamtVG = 71.75f;
 	

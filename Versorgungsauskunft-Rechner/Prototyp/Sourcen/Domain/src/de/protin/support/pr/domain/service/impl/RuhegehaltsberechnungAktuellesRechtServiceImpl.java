@@ -14,6 +14,7 @@ import de.protin.support.pr.domain.besoldung.Grundgehalt;
 import de.protin.support.pr.domain.besoldung.SonstigeZulage;
 import de.protin.support.pr.domain.pension.Dienstunfaehigkeit;
 import de.protin.support.pr.domain.service.IRuhegehaltsberechnungAktuellesRechtService;
+import de.protin.support.pr.domain.service.impl.util.PflegeleistungAbzug_Para_BeamtVG_50f;
 import de.protin.support.pr.domain.timeperiod.Para_13_Zurechnungszeit_DDU;
 import de.protin.support.pr.domain.utils.Constants;
 import de.protin.support.pr.domain.utils.DayCalculator;
@@ -121,69 +122,12 @@ public class RuhegehaltsberechnungAktuellesRechtServiceImpl implements IRuhegeha
 			return Constants.VERSORGUNGSSATZ_MAX_PARA_14_Abs_1_BeamtVG;
 		}
 		
+		
+		ruhegehaltsSatz = (float) (Math.round(100.0 * ruhegehaltsSatz) / 100.0); // runden auf die 2 Nachkommastelle
+	    
 		return ruhegehaltsSatz;
 	}
 	
-	
-	
-	
-	/**
-	 * Hier erstmal nur die grobe Berechnung. Muss bei bedarf ggf. nochmal besser recherchiert werden.
-	 * Die ersten 10 jahre zählen 35 %. 
-	 * Die Jahre 11- 25 jeweils 2%.
-	 * Wenn ein Rest von mehr als 182 Tage übrig ist, wird dies als ein ganzes jahr gerechnet.
-	 * Mittlerweile dürften die Vergleichsberechnung altersbedingt nicht mehr günstiger sein.
-	 * 
-	 * Anhand der Vergleichsberechnung der BAnstPT für 10 ruhegehaltsfähige Jahre vor dem 01.01.1992
-	 * ist dies nicht mehr günstiger.
-	 * 
-	 * Wenn evtl. mehr als 13-15 ruhegehaltsfähige Jahre vor dem 01.01.1992 vorhanden sind, wird dies vermutlich anders aussehen.
-	 * 
-	 * Auf mehr als 20 ruhegehaltsfähige Jahre vor dem 01.01.1992 dürfte keine mehr kommen (Stand 2020)
-	 * 
-	 *  Bsp: 1972 - 1981 = 35%
-	 *       1982 - 1991 = 35 + (10*2) = 55%
-	 * 		 1992 - 2020 = 55 + (28*1) = 83%
-	 * 
-	 * 		 1976 - 1985 = 35
-	 *       1986 - 1991 = 35 + (5*2) = 45%
-	 * 		 1992 - 2020 = 45 + (28*1) = 73%
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @return
-	 */
-	
-	public float calculateRuhegehaltssatz_Para_85_Vergleichsberechnung(IPension pension) {
-		float ruhegehaltsSatzPara85 = 0.0f;
-		TimePeriodDetails timePeriodBeforeDate19920101 = TimePeriodCalculator.getTimePeriodBeforeDate19920101(pension);
-		long years = timePeriodBeforeDate19920101.getYears();
-		long days = timePeriodBeforeDate19920101.getDays();
-		if(years > 9) {
-			years = years - 10;
-			ruhegehaltsSatzPara85 = 35.00f;
-			if(years > 0 && years < 16) {
-				ruhegehaltsSatzPara85 += years * 2.0;
-			}
-			if(days > 182) {
-				ruhegehaltsSatzPara85 += 2.0;
-			}
-		}
-		
-		
-		TimePeriodDetails timePeriodAfterDate199112231 = TimePeriodCalculator.getTimePeriodAfterDate199112231(pension);
-		ruhegehaltsSatzPara85 += timePeriodAfterDate199112231.getYears() * 1.0;
-		if(timePeriodAfterDate199112231.getDays() > 182) {
-			ruhegehaltsSatzPara85 += 1.0;
-		}
-		
-		float anpassungsfaktor_Para_69e = Constants.KORREKTURFAKTOR_PARA_69e_Abs_4_BeamtVG;  //siehe Vergleichberechnung der BAnst und §69e Abs.4
-  		ruhegehaltsSatzPara85 *= anpassungsfaktor_Para_69e;
-		return ruhegehaltsSatzPara85;
-	}
-
-
 	
 	
 	@Override
@@ -197,9 +141,14 @@ public class RuhegehaltsberechnungAktuellesRechtServiceImpl implements IRuhegeha
 
 	@Override
 	public float getMaxAbzugPflegeleistung(IPension pension) {
-		return pension.getBesoldungstabelle().getMaxAbzugPflegeleistung();
+		return PflegeleistungAbzug_Para_BeamtVG_50f.getInstance().getMaxAbzugPflegeleistung(pension.getPerson().getDateOfRetirement());
 	}
 	
+	
+	@Override
+	public float getFaktorAbzugPflegeleistung(IPension pension) {
+		return PflegeleistungAbzug_Para_BeamtVG_50f.getInstance().getFaktorAbzugPflegeleistung(pension.getPerson().getDateOfRetirement());
+	}
 	
 	
 	private Date calculateTargetDateForZurechnungszeit(Date birthDate) {

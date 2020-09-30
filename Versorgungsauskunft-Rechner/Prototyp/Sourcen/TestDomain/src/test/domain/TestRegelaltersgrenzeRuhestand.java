@@ -106,7 +106,7 @@ public class TestRegelaltersgrenzeRuhestand {
 		objectUnderTest.calculateRuhegehaltssatz_Para_14_1_Neue_Fassung();
 		
 		float erdientesRuhegehalt = objectUnderTest.calculateErdientesRuhegehalt();
-		assertEquals((double)erdientesRuhegehalt, (double)3598.90f, 0.1);
+		assertEquals((double)erdientesRuhegehalt, (double)3599.08f, 0.1);
 	}
 		
 	
@@ -142,7 +142,7 @@ public class TestRegelaltersgrenzeRuhestand {
 	public void testCalculateKindererziehungszuschlag() {
 		
 		KindererziehungszeitenZuschlag kindererziehungszuschlag = objectUnderTest.getKindererziehungsZuschlag();
-		float kez = kindererziehungszuschlag.calculateKindererziehungszuschlag();
+		float kez = kindererziehungszuschlag.calculateKindererziehungszuschlag(objectUnderTest);
 		assertEquals((double)kez, (double)187.96f, 0.1);
 		
 		//Höchstgrenze berechnen
@@ -209,7 +209,7 @@ public class TestRegelaltersgrenzeRuhestand {
 	 * @param pension
 	 */
 	private void addKindererziehungsZuschlag(RegelaltersgrenzeRuhestand pension) {	
-		KindererziehungszeitenZuschlag kindererziehungszuschlag = new KindererziehungszeitenZuschlag(pension.getBesoldungstabelle().getAktuellenRentenwertWestForKindererziehungszuschlag());
+		KindererziehungszeitenZuschlag kindererziehungszuschlag = new KindererziehungszeitenZuschlag();
 		//kindererziehungszuschlag.setPension(pension);
 		Para_50_Kindererziehungszeit kind1 = new Para_50_Kindererziehungszeit("Kind1", DateFactory.getDate("12.02.1991"), null, null, true);
 		Para_50_Kindererziehungszeit kind2 = new Para_50_Kindererziehungszeit("Kind2", DateFactory.getDate("16.04.1994"), null, null, true);

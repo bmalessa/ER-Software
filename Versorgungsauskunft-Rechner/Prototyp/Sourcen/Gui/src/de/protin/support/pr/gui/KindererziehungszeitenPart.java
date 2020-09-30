@@ -208,6 +208,8 @@ public class KindererziehungszeitenPart extends TabPart  {
 		// Column 6 : Anzahl der zulagefähigen Monate
 		textEditor = new TextCellEditor(table);  
 		((Text) textEditor.getControl()).setTextLimit(2);
+		
+		/*
 		((Text) textEditor.getControl()).addVerifyListener(
 				
 				new VerifyListener() {
@@ -222,6 +224,7 @@ public class KindererziehungszeitenPart extends TabPart  {
 				        } 
 					}
 		});
+		*/
 		editors[5] = textEditor;		
 		
 		// Column 7 : Voller Anspruch auf KEZ vorhanden
@@ -389,7 +392,7 @@ public class KindererziehungszeitenPart extends TabPart  {
 		if(this.childListBefore1992.isEmpty() && this.childListAfter1991.isEmpty()) {
 			return null;
 		}
-		KindererziehungszeitenZuschlag kez = new KindererziehungszeitenZuschlag(rentenwert);
+		KindererziehungszeitenZuschlag kez = new KindererziehungszeitenZuschlag();
 		
 		for (KezPeriodWrapper kezPeriodWrapper : childListAfter1991) {
 			kez.addKindererziehungszeit(kezPeriodWrapper.getKindererziehungszeit(), KindererziehungszeitenZuschlag.KEZ_NACH_1991);

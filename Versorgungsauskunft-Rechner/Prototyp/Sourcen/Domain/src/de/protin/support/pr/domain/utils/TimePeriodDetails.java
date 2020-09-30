@@ -1,5 +1,8 @@
 package de.protin.support.pr.domain.utils;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,6 +18,7 @@ public class TimePeriodDetails {
 	private Date endDate;
 	private long years;
 	private long days;
+	private long daysForTimePeriod;
 	
 	public TimePeriodDetails() {}
 	
@@ -22,53 +26,39 @@ public class TimePeriodDetails {
 	public TimePeriodDetails(Date startDate, Date endDate) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		
 		calculateYearsAndDays();
 	}
 	
+	public TimePeriodDetails(long amonutOfYears, long amountOfDays) {
+		this.years = amonutOfYears;
+		this.days = amountOfDays;
+		this.daysForTimePeriod = (years * DAYS_IN_YEAR) + days;
+	}
 	
 	public TimePeriodDetails(long anzahlTage) {
+		this.daysForTimePeriod = anzahlTage;
 		calculateYearsAndDays(anzahlTage);
 	}
 
 	
-	
-	public long getPeriodInMonths() {
-		return (years * 12) + (days / DAYS_IN_MONTH);
-	}
-	
-	public long getDaysInMonths() {
-		return days / DAYS_IN_MONTH;
-	}
-	
 	public long getAmountOfDays() {
-		return (years * 365) + days; 
+		if(this.daysForTimePeriod == 0 && this.startDate != null && this.getEndDate() != null) {
+			calculateYearsAndDays();
+		}
+		return this.daysForTimePeriod;
 	}
 	
 	
 	public float getFactorizedAmountOfDays(float factor) {
-		return ((years * 365) + days) * factor; 
+		return ((years * DAYS_IN_YEAR) + days) * factor; 
 	}
 	
 	
 	public void add(TimePeriodDetails timePeriod) {
-		this.years += timePeriod.getYears();
-		this.days += timePeriod.getDays();
+		long newAmounOfDays = this.daysForTimePeriod + timePeriod.getAmountOfDays();
+		calculateYearsAndDays(newAmounOfDays);
 	}
 	
-	
-	public void add(long years, long days) {
-		this.years += years;
-		this.days += days;
-	}
-
-
-	public void addMonths(int months) {
-		this.years += months / 12;
-		months = months % 12;
-		this.days = months * DAYS_IN_MONTH;
-	}
-
 
 	public Date getStartDate() {
 		return startDate;
@@ -122,9 +112,11 @@ public class TimePeriodDetails {
 	private void resetDates() {
 		this.startDate = null;
 		this.endDate = null;
+		resetNumbers();
 	}
 	
 	private void resetNumbers() {
+		this.daysForTimePeriod = 0;
 		this.years = 0;
 		this.days = 0;
 	}
@@ -132,39 +124,28 @@ public class TimePeriodDetails {
 	
 	
 	private void calculateYearsAndDays() {
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(startDate);
-		int startYear = calendar.get(Calendar.YEAR);
+		LocalDate startDateInclusive = convertToLocalDate(this.startDate);
+		LocalDate enddateExclusive = convertToLocalDate(DateUtils.addDays(this.endDate,1));
 		
-		calendar.clear();
-		calendar.setTime(endDate);
-		int endYear = calendar.get(Calendar.YEAR);
+		long daysInPeriod = ChronoUnit.DAYS.between(startDateInclusive,enddateExclusive);
 		
-		this.years = (endYear) - (startYear+1);
+		//Schaltjahre in vollständigen Jahren müssen ebenfalls mit 365 und nicht mit 366 tagen gezählt werden
+		//deshalb diese Tage hier nochmal separate ermitteln.
+		long leafYearsInTimeperiod = calculateLeafYears();
 		
-		long fragmentInDays = DateUtils.getFragmentInDays(this.startDate, Calendar.YEAR);
-		fragmentInDays--; // der erste tag zählt auch mit
-		long daysInStartYear = DAYS_IN_YEAR - fragmentInDays;
-		
-		long daysInEndYear = DateUtils.getFragmentInDays(this.endDate, Calendar.YEAR);
-		
-		
-		
-		long restDays = daysInStartYear + daysInEndYear;
-		if(restDays < DAYS_IN_YEAR) {
-			this.days = restDays;
-		}
-		else {
-			this.days = restDays - DAYS_IN_YEAR;
-			this.years = this.years + 1;
-		}
+		// und müssen deshalb vorher abgezogen werden
+		daysInPeriod -= leafYearsInTimeperiod;
+		calculateYearsAndDays(daysInPeriod);
 	}
 	
 	
 
 	private void calculateYearsAndDays(long amountOfDays) {
+		resetNumbers();
 		
-		if(amountOfDays < DAYS_IN_YEAR) {
+		this.daysForTimePeriod = amountOfDays;
+		
+		if(this.daysForTimePeriod < DAYS_IN_YEAR) {
 			this.days = amountOfDays;
 		}
 		else {
@@ -172,5 +153,48 @@ public class TimePeriodDetails {
 			this.years = amountOfDays / DAYS_IN_YEAR;
 		}
 	}
+
 	
+	private LocalDate convertToLocalDate(Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDate();
+	}
+	
+	
+	private long calculateLeafYears() {
+		int startYear;
+		int endYear;
+		long result = 0;
+		GregorianCalendar calendar = new GregorianCalendar();
+		
+		if(DateUtils.getFragmentInDays(this.startDate, Calendar.YEAR) < 365) {
+			Date start = DateUtils.ceiling(this.startDate,Calendar.YEAR);
+			start = DateUtils.addDays(start, 1);
+			calendar.setTime(start);
+			startYear = calendar.get(Calendar.YEAR);
+		}
+		else {
+			calendar.setTime(this.startDate);
+			startYear = calendar.get(Calendar.YEAR);
+		}
+		
+		if(DateUtils.getFragmentInDays(this.endDate, Calendar.YEAR) < 365) {
+			Date end = DateUtils.addYears(this.endDate, -1);
+			calendar.setTime(end);
+			endYear = calendar.get(Calendar.YEAR);
+		}
+		else {
+			calendar.setTime(this.endDate);
+			endYear = calendar.get(Calendar.YEAR);
+		}
+		
+		for (int i = startYear; i < endYear+1; i++) {
+			if(calendar.isLeapYear(i)) {
+				result++;
+			}
+		}
+		
+		return result;
+	}
 }

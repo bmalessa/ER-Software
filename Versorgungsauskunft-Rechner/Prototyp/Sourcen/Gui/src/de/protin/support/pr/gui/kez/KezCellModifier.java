@@ -1,4 +1,5 @@
 package de.protin.support.pr.gui.kez;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
@@ -98,25 +99,54 @@ public class KezCellModifier implements ICellModifier {
 				wrapper.getKindererziehungszeit().setChildName((String)value);
 				break;
 			case 1 : // Start Datum
-				valueDate = DateUtil.getDate((String)value);
-				wrapper.getKindererziehungszeit().setBirthDate(valueDate);
+				if(((String)value).length() == 10) {
+					try {
+						valueDate = DateUtil.parseDateString((String)value);
+						wrapper.getKindererziehungszeit().setBirthDate(valueDate);
+					}
+					catch (ParseException ex) {
+						//e.printStackTrace();
+					}
+				}
 				break;		
 			case 2 : // Start Datum
-				valueDate = DateUtil.getDate((String)value);
-				wrapper.getKindererziehungszeit().setStartDate(valueDate);
+				if(((String)value).length() == 10) {
+					try {
+						valueDate = DateUtil.parseDateString((String)value);
+						wrapper.getKindererziehungszeit().setStartDate(valueDate);
+					}
+					catch (ParseException ex) {
+						//e.printStackTrace();
+					}
+				}
 				break;	
 			case 3 : // Start Datum
-				valueDate = DateUtil.getDate((String)value);
-				wrapper.getKindererziehungszeit().setEndDate(valueDate);
+				if(((String)value).length() == 10) {
+					try {
+						valueDate = DateUtil.parseDateString((String)value);
+						wrapper.getKindererziehungszeit().setEndDate(valueDate);
+					}
+					catch (ParseException ex) {
+						//e.printStackTrace();
+					}
+				}
 				break;	
 			case 4 : // Factor
-				valueInt = Integer.parseInt(((String)value));
-				wrapper.getKindererziehungszeit().setLegalMonths(valueInt);
+				try {
+					valueInt = Integer.parseInt(((String)value));
+					wrapper.getKindererziehungszeit().setLegalMonths(valueInt);
+				} catch (NumberFormatException e) {
+					//e.printStackTrace();
+				}
 				break;
-			case 5 : // RGF/Tage
-				valueInt = Integer.parseInt(((String)value));
-				if (wrapper.getKindererziehungszeit().getZulageMonths() != valueInt) {
-					wrapper.getKindererziehungszeit().setZulageMonths(valueInt);
+			case 5 : // Zulage Monate
+				try {
+					valueInt = Integer.parseInt(((String)value));
+					if (wrapper.getKindererziehungszeit().getZulageMonths() != valueInt) {
+						wrapper.getKindererziehungszeit().setZulageMonths(valueInt);
+					}
+				} catch (NumberFormatException e) {
+					//e.printStackTrace();
 				}
 				break;
 			case 6 : // Voller Anspruch

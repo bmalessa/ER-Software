@@ -56,5 +56,8 @@ public interface IRuhegehaltsberechnungAktuellesRechtService {
 	 * @return
 	 */
 	public float getMaxAbzugPflegeleistung(IPension pension);
+	
+	
+	public float getFaktorAbzugPflegeleistung(IPension pension);
 
 }

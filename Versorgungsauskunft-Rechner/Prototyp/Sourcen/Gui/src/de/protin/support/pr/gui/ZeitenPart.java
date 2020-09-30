@@ -23,25 +23,17 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.events.VerifyListener;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import de.protin.support.pr.domain.Comment;
@@ -232,6 +224,7 @@ public class ZeitenPart extends TabPart  {
 		// Column 6 : Anzahl ruhegehaltsfähige Tage
 		textEditor = new TextCellEditor(table);  
 		((Text) textEditor.getControl()).setTextLimit(5);
+		/*
 		((Text) textEditor.getControl()).addVerifyListener(
 				
 				new VerifyListener() {
@@ -246,6 +239,7 @@ public class ZeitenPart extends TabPart  {
 				        } 
 					}
 		});
+		*/
 		editors[6] = textEditor;		
 		
 

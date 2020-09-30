@@ -150,7 +150,7 @@ public class JsonDeserializer {
 	private static KindererziehungszeitenZuschlag getKindererziehungszuschlagFromJson(JsonObject jsonObject, String anzuwRecht, Date dateOfRetirement) {
 		
 		IBesoldungstabelle besoldungstabelle = BesoldungstabelleFactory.getInstance().getBesoldungstabelle(anzuwRecht, dateOfRetirement);
-		KindererziehungszeitenZuschlag kez = new KindererziehungszeitenZuschlag(besoldungstabelle.getAktuellenRentenwertWestForKindererziehungszuschlag());
+		KindererziehungszeitenZuschlag kez = new KindererziehungszeitenZuschlag();
 		
 		JsonElement jsonElement = jsonObject.get("kindererziehungsZuschlag");
 		if(jsonElement instanceof JsonNull) {

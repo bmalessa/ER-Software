@@ -1,11 +1,11 @@
 package de.protin.support.pr.gui;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.SWT;
@@ -89,7 +89,7 @@ public class GrunddatenPart extends TabPart {
 		
 
 		GridData gd_comboPensionType = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_comboPensionType.widthHint = 218;
+		gd_comboPensionType.widthHint = 240;
 		comboPensionType.setLayoutData(gd_comboPensionType);
 		
 		
@@ -98,8 +98,10 @@ public class GrunddatenPart extends TabPart {
 		lblEintrittBeaV.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblEintrittBeaV.setText(ControlConstants.LABEL_EINTRITT_IN_DAS_BEAMTENVERH_AM);
 		
+		GridData gd_dateField = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
+		gd_dateField.widthHint = 100;
 		tfSubstantiationDate = new Text(partComposite, SWT.BORDER);
-		tfSubstantiationDate.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1));
+		tfSubstantiationDate.setLayoutData(gd_dateField);
 		
 		
 		Label lblEintrittInDen = new Label(partComposite, SWT.NONE);
@@ -108,7 +110,7 @@ public class GrunddatenPart extends TabPart {
 		lblEintrittInDen.setText(ControlConstants.LABEL_EINTRITT_IN_DEN_RUHESTAND_ZUM);
 		
 		tfRetirementDate = new Text(partComposite, SWT.BORDER);
-		tfRetirementDate.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1));
+		tfRetirementDate.setLayoutData(gd_dateField);
 		
 		Label lblAnzuwendendesRecht = new Label(partComposite, SWT.NONE);
 		lblAnzuwendendesRecht.setFont(SWTResourceManager.getFont(ControlConstants.FONT_LABEL, 9, SWT.BOLD));
@@ -173,7 +175,7 @@ public class GrunddatenPart extends TabPart {
 		
 		tfName = new Text(partComposite, SWT.BORDER);
 		GridData gd_tfName = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_tfName.widthHint = 186;
+		gd_tfName.widthHint = 200;
 		tfName.setLayoutData(gd_tfName);
 		
 		Label lblVorname = new Label(partComposite, SWT.NONE);
@@ -183,7 +185,7 @@ public class GrunddatenPart extends TabPart {
 		
 		tfVorname = new Text(partComposite, SWT.BORDER);
 		GridData gd_tfVorname = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
-		gd_tfVorname.widthHint = 186;
+		gd_tfVorname.widthHint = 200;
 		tfVorname.setLayoutData(gd_tfVorname);
 		
 		Label lblGeburtsdatum = new Label(partComposite, SWT.NONE);
@@ -192,7 +194,7 @@ public class GrunddatenPart extends TabPart {
 		lblGeburtsdatum.setText(ControlConstants.LABEL_GEBURTSDATUM);
 		
 		tfBirthDate = new Text(partComposite, SWT.BORDER);
-		tfBirthDate.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
+		tfBirthDate.setLayoutData(gd_dateField);
 		
 		new Label(partComposite, SWT.NONE);
 		this.cbSchwerbehindert = new Button(partComposite, SWT.CHECK);
@@ -288,7 +290,7 @@ public class GrunddatenPart extends TabPart {
 		
 		this.comboFamZuschlag = new Combo(compositeFamZuschlag, SWT.NONE);
 		GridData gd_comboFamZuschlag = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_comboFamZuschlag.widthHint = 236;
+		gd_comboFamZuschlag.widthHint = 240;
 		comboFamZuschlag.setLayoutData(gd_comboFamZuschlag);
 		comboFamZuschlag.setSize(210, 23);
 		comboFamZuschlag.setItems(new String[] {SelectionConstants.FAMILIENZUSCHLAG_STUFE_0, 
@@ -355,7 +357,6 @@ public class GrunddatenPart extends TabPart {
 	}
 
 
-	
 	/**
 	 * Validierung der Eingaben gegen die jeweils für das betreffendes Eingabefeld erwarteten Datentypen, z.B. valides Datumsformat oder Integer. 
 	 * 
@@ -364,19 +365,29 @@ public class GrunddatenPart extends TabPart {
 	public List<Status> validateInput() {
 		
 		 List<Status> validationStatuses = new ArrayList<>();
-		 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		 String[] acceptedFormats = {"dd.MM.yyyy"};
 		 String decimalPattern = "([0-9]*)\\,([0-9][0-9])";  
-		
-		  try {
-			sdf.parse(getTfBirthDate().getText());
+		 
+		 try {
+			  DateUtils.parseDate(getTfBirthDate().getText(), acceptedFormats );
 		  } catch (ParseException e) {
 			  Status status = new Status(IStatus.ERROR,"Geburtstag", "Geburtstag: Datum im bitte in folgendem Fomat eingeben: \"TT.MM.JJJJ\"");
 			  validationStatuses.add(status);
 		  }
+		  
 		  try {
-			sdf.parse(getTfRetirementDate().getText());
+			  DateUtils.parseDate(getTfRetirementDate().getText(), acceptedFormats );
+			  
 		  } catch (ParseException e) {
 			  Status status = new Status(IStatus.ERROR,"Eintritt in den Ruhestand", "Eintritt in den Ruhestand: Datum im bitte in folgendem Fomat eingeben: \"TT.MM.JJJJ\"");
+			  validationStatuses.add(status);
+		  }
+		  
+		  try {
+			  DateUtils.parseDate(getTfSubstantiationDate().getText(), acceptedFormats );
+			  
+		  } catch (ParseException e) {
+			  Status status = new Status(IStatus.ERROR,"Begründung des Beamtenverhältnis", "Begründung des Beamtenverhältnis: Datum im bitte in folgendem Fomat eingeben: \"TT.MM.JJJJ\"");
 			  validationStatuses.add(status);
 		  }
 		  

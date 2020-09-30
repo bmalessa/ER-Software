@@ -9,8 +9,8 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -25,6 +25,8 @@ import de.protin.support.pr.domain.utils.SelectionConstants;
 
 public class BesoldungstabellePart {
 
+	
+	private Composite parent;
 	private Composite part;
 	private Table tableBesOrdnungA;
 	private Table tableBesOrdnungB;
@@ -35,6 +37,7 @@ public class BesoldungstabellePart {
 	private IBesoldungstabelle besoldungstabelle;
 	
 	public BesoldungstabellePart (Composite parent) {
+		this.parent = parent;
 		this.besoldungstabelle = 
 				BesoldungstabelleFactory.getInstance().getBesoldungstabelle(SelectionConstants.ANZUWENDENDES_RECHT_BUND, new Date());
 	}
@@ -53,11 +56,11 @@ public class BesoldungstabellePart {
 		Label lblHeader = new Label(part, SWT.BORDER);
 		lblHeader.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.BOLD));
 		lblHeader.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		lblHeader.setText("Besoldungstabelle Bund 2020 ");
+		lblHeader.setText(this.besoldungstabelle.getTitel());
 		
 		Label lblNewLabel = new Label(part, SWT.NONE);
 		lblNewLabel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		lblNewLabel.setText("F\u00FCr Beamtinnen und Beamte  des Bundes (g\u00FCltig ab 01. M\u00E4rz 2020)  ");
+		lblNewLabel.setText(this.besoldungstabelle.getSubTitel());
 		
 
 		
@@ -336,9 +339,14 @@ public class BesoldungstabellePart {
 	
 	
 
-	public Control getPart() {
+	public Composite getPart() {
 		return this.part;
 	}
+	
+	public Composite getParent() {
+		return this.parent;
+	}
+	
 	
 	private String getGrundgehalt(String besOrdnung, int besGr, int besStufe) {
 		Grundgehalt grundgehalt = new Grundgehalt(besOrdnung, besGr, besStufe);
@@ -346,4 +354,20 @@ public class BesoldungstabellePart {
 		return String.format("%,.2f", gehalt);
 				//Float.toString(gehalt);
 	}
+
+	
+
+	public IBesoldungstabelle getBesoldungstabelle() {
+		return besoldungstabelle;
+	}
+
+
+	public void setBesoldungstabelle(IBesoldungstabelle besoldungstabelle) {
+		this.besoldungstabelle = besoldungstabelle;
+		part.dispose();
+		initPart(this.parent);
+	}
+	
+	
+	
 }

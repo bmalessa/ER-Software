@@ -7,13 +7,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.printing.PrintDialog;
 import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import de.protin.support.pr.domain.IPension;
@@ -98,7 +101,7 @@ public class RuhegehaltBerechnungPart {
 		
 		if(this.pension.getKindererziehungsZuschlag() != null) {
 			KindererziehungszeitenZuschlag kindererziehungsZuschlag = this.pension.getKindererziehungsZuschlag();
-			if (kindererziehungsZuschlag.calculateKindererziehungszuschlag() > 0) {
+			if (kindererziehungsZuschlag.calculateKindererziehungszuschlag(this.pension) > 0) {
 				pageBreak();
 				appendKindererziehungszuschlag();
 			}
@@ -203,8 +206,33 @@ public class RuhegehaltBerechnungPart {
 		    	switch (e.type) {
 			         case SWT.Selection:
 			           
+					       
 					       if(printer == null || printer.isDisposed()) {
-					       	   printer = new Printer();
+					       	   PrintDialog printDialog = new PrintDialog(styledText.getShell(), SWT.NONE);
+					       	   printDialog.setText("Print");
+					       	   PrinterData printerData = printDialog.open();
+					       	   if (!(printerData == null)) {
+					       		   String printerName = printerData.name;
+					       		   if (!printerName.toLowerCase().contains("pdf")) {
+					       			   // show warning , expect PDF-Printer
+					       			   MessageBox messageBox = new MessageBox(styledText.getShell(), SWT.ICON_QUESTION
+					       		            | SWT.OK);
+					       	        
+					       			   messageBox.setText("Warning");
+					       			   messageBox.setMessage("Es wurde kein \"Print to PDF\" -Drucker ausgewählt. Andere Druckertreiber werden nicht unterstützt.");
+					       			   int buttonID = messageBox.open();
+						       	        switch(buttonID) {
+						       	          case SWT.OK:
+						       	        	  return;
+						       	        }
+					       		   }
+
+					       		   printer = new Printer(printerData);
+					       	   }
+					       	   else {
+					       		   //Standarddrucker wird genommen 
+					       		   printer = new Printer();
+					       	   }
 					       }
 					  				       
 				           //switch to PDF Formatter

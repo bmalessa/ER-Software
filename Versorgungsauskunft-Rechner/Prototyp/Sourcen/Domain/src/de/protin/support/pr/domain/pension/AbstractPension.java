@@ -238,8 +238,9 @@ public abstract class AbstractPension implements IPension {
 	@Override
 	public void calculatePflegeleistungsabzug() {
 		float erdientesRuhegehalt = calculateErdientesRuhegehalt();
-		this.abzugPflegeleistung = erdientesRuhegehalt * Constants.FAKTOR_PARA_50f_BeamtVG / 100;
+		//this.abzugPflegeleistung = erdientesRuhegehalt * Constants.FAKTOR_PARA_50f_BeamtVG / 100;
 		IRuhegehaltsberechnungAktuellesRechtService rgbService = ServiceRegistry.getInstance().getRuhegehaltsberechnungAktuellesRechtService();
+		this.abzugPflegeleistung = erdientesRuhegehalt * rgbService.getFaktorAbzugPflegeleistung(this) /100;
 		if(this.abzugPflegeleistung > rgbService.getMaxAbzugPflegeleistung(this)) {
 			this.abzugPflegeleistung = rgbService.getMaxAbzugPflegeleistung(this );
 		};
@@ -290,6 +291,8 @@ public abstract class AbstractPension implements IPension {
 		return ServiceRegistry.getInstance().getRuhegehaltsberechnungAktuellesRechtService().calculateErdientesRuhegehalt(this);
 	}
 	
+	
+
 	
 	/**
 	 * Abhängig von der Art der Ruhegehaltsbeantragung werden unterschiedliche Abschläge am Ruhegehalt vorgenommen.
@@ -429,9 +432,6 @@ public abstract class AbstractPension implements IPension {
 	public float getSummeRuhegehaltsfaehigeDienstbezuege() {
 		return summeRuhegehaltsfaehigeDienstbezuege;
 	}
-
-	
-
 	
 
 	public float getAbzugPflegeleistung() {
@@ -439,6 +439,11 @@ public abstract class AbstractPension implements IPension {
 			this.calculatePflegeleistungsabzug();
 		}
 		return this.abzugPflegeleistung;
+	}
+	
+	
+	public float getFaktorAbzugPflegeleistungNachBeamtVG_50_f() {
+		return ServiceRegistry.getInstance().getRuhegehaltsberechnungAktuellesRechtService().getFaktorAbzugPflegeleistung(this);
 	}
 
 

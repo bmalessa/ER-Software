@@ -8,6 +8,7 @@ import de.protin.support.pr.domain.IPension;
 import de.protin.support.pr.domain.besoldung.zuschlag.KindererziehungszeitenZuschlag;
 import de.protin.support.pr.domain.besoldung.zuschlag.Para_50_Kindererziehungszeit;
 import de.protin.support.pr.domain.service.IKindererziehungszeitenService;
+import de.protin.support.pr.domain.service.impl.util.Rentenwert;
 import de.protin.support.pr.domain.utils.Constants;
 import de.protin.support.pr.domain.utils.DateUtil;
 
@@ -15,13 +16,10 @@ public class KindererziehungszeitenServiceImpl implements IKindererziehungszeite
 	
 	private Date date_19920101 = DateUtil.getDate("01.01.1992");
 
-	
-	private int rentenWertID;
-	private float aktuellerRentenwert = 0.0f;
-	
+	private Rentenwert rentenwert;
 	
 	public KindererziehungszeitenServiceImpl() {
-		
+		rentenwert = new Rentenwert();
 	}
 	
 
@@ -33,7 +31,7 @@ public class KindererziehungszeitenServiceImpl implements IKindererziehungszeite
 		
 		for (Iterator iterator = kindererziehungszeiten.iterator(); iterator.hasNext();) {
 			Para_50_Kindererziehungszeit kez = (Para_50_Kindererziehungszeit) iterator.next();
-			kindererziehungszuschlag += this.calculateKindererziehungszuschlag(kez);
+			kindererziehungszuschlag += this.calculateKindererziehungszuschlag(kez, pension);
 		}
 		
 		return kindererziehungszuschlag;
@@ -42,7 +40,10 @@ public class KindererziehungszeitenServiceImpl implements IKindererziehungszeite
 	
 
 	@Override
-	public float calculateKindererziehungszuschlag(Para_50_Kindererziehungszeit kindererziehungszeit) {
+	public float calculateKindererziehungszuschlag(Para_50_Kindererziehungszeit kindererziehungszeit, IPension pension) {
+		Date dateOfRetirement = pension.getPerson().getDateOfRetirement();
+		//Default ist Berechnung  mit Aktuellen Rentenwert West gem. SGB 6
+		float aktuellerRentenwert = getAktuellerRentenwert(dateOfRetirement, KindererziehungszeitenZuschlag.RENTENWERT_WEST);
 		float kindererziehungszuschlag = 0.0f;
 		Date birthDate = kindererziehungszeit.getBirthDate();
 		if(birthDate.before(date_19920101)) {
@@ -86,19 +87,9 @@ public class KindererziehungszeitenServiceImpl implements IKindererziehungszeite
 	
 
 	@Override
-	public void setRentenwertID(int rentenwertID) {
-		this.rentenWertID = rentenwertID;
-		
+	public float getAktuellerRentenwert(Date dateOfRetirement, int rentenwertID) {
+		return this.rentenwert.getAktuellerRentenwert(dateOfRetirement, rentenwertID);
 	}
-
-
-	@Override
-	public void setAktuellerRentenwert(float aktuellerRentenwert) {
-		this.aktuellerRentenwert = aktuellerRentenwert;
-	}
-
-	
-
 
 
 

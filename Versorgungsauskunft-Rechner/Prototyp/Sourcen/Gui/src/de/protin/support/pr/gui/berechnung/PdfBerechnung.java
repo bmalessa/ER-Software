@@ -94,7 +94,7 @@ public class PdfBerechnung extends AbstractBerechnung implements IVersorgungsaus
 		appendStyleRange(new String("Grundlagen der Berechnung für die Versorgungsauskunft"), SWT.BOLD, 14, 2);
 		appendLabel("Art des Ruhestand: " + addTabs(3)); appendText(this.pension.getPensionTyp());
 		appendLine(1);
-		appendLabel("Besoldung: " + addTabs(6)); appendText(this.pension.getBesoldungstabelle().print());
+		appendLabel("Besoldung: " + addTabs(6)); appendText(this.pension.getBesoldungstabelle().getSubTitel());
 		appendLine(1);
 		appendLabel("Anz. Recht: " + addTabs(6)); appendText(this.pension.getAnzwRecht());
 		appendLine(1);
@@ -244,12 +244,13 @@ public class PdfBerechnung extends AbstractBerechnung implements IVersorgungsaus
 		appendLine(2);
 		
 		
+		float faktorAbzugPflegeleistung = this.pension.getFaktorAbzugPflegeleistungNachBeamtVG_50_f();
 		appendStyleRange(new String("Abzug für Pflegeleistung nach §50f BeamtVG"), SWT.BOLD, 12, 1);
 		appendText("  " + "Bemessungsfgrundlage Abzug Pflegeleistung "  + addTabs(7)  +   printFloat(versorgungsbezug));
 		appendLine(1);
-		appendText("x " + String.format("%.4f", Constants.FAKTOR_PARA_50f_BeamtVG) + " v.H." + addTabs(20)  +   printFloat(versorgungsbezug));
+		appendText("x " + String.format("%.4f", faktorAbzugPflegeleistung) + " v.H." + addTabs(20)  +   printFloat(versorgungsbezug));
 		appendLine(1);
-		float abzugPflegeleistung = (versorgungsbezug/100) * Constants.FAKTOR_PARA_50f_BeamtVG;
+		float abzugPflegeleistung = (versorgungsbezug/100) * faktorAbzugPflegeleistung;
 		appendText("= " + "Abzug für Pflegeleistung § 50f BeamtVG"  + addTabs(9)  +  printFloat(abzugPflegeleistung));
 		appendLine(2);
 		
@@ -492,7 +493,7 @@ public class PdfBerechnung extends AbstractBerechnung implements IVersorgungsaus
 	@Override
 	public void buildKinderziehungszuschlagSection() {
 		KindererziehungszeitenZuschlag kindererziehungsZuschlag = this.pension.getKindererziehungsZuschlag();
-		float kez = kindererziehungsZuschlag.calculateKindererziehungszuschlag();
+		float kez = kindererziehungsZuschlag.calculateKindererziehungszuschlag(this.pension);
 		float rentenWertWest = this.pension.getBesoldungstabelle().getAktuellenRentenwertWestForKindererziehungszuschlag();
 		float rentenWertOst = this.pension.getBesoldungstabelle().getAktuellenRentenwertOstForKindererziehungszuschlag();
 		

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.protin.support.pr.domain.IPension;
 import de.protin.support.pr.domain.service.IKindererziehungszeitenService;
 import de.protin.support.pr.domain.service.impl.ServiceRegistry;
 
@@ -68,27 +69,18 @@ public class KindererziehungszeitenZuschlag {
 	
 	
 	
-	private float aktuellerRentenwert = 0.0f;
-	private float mtlEntgeltPunkt = 0.0f;
 	private IKindererziehungszeitenService kezService;
 	
 	
 	protected Set<Para_50_Kindererziehungszeit> kindererziehungszeitenVor1992;
 	protected Set<Para_50_Kindererziehungszeit> kindererziehungszeitenNach1991;
-	protected int rentenwertID;
+	//protected int rentenwertID;
 	
 	
-	public KindererziehungszeitenZuschlag(float rentenwert) {
-		this.aktuellerRentenwert = rentenwert;
+	public KindererziehungszeitenZuschlag() {
 		this.kindererziehungszeitenVor1992 = new HashSet<Para_50_Kindererziehungszeit>();
 		this.kindererziehungszeitenNach1991 = new HashSet<Para_50_Kindererziehungszeit>();
 		this.kezService = ServiceRegistry.getInstance().getKindererziehungszeitenService();
-
-		if(this.kezService != null) {
-			//Default ist Berechnung  mit Aktuellen Rentenwert West gem. SGB 6
-			this.kezService.setRentenwertID(RENTENWERT_WEST);
-			this.kezService.setAktuellerRentenwert(rentenwert);
-		}
 	}
 
 	
@@ -148,32 +140,19 @@ public class KindererziehungszeitenZuschlag {
 	 * @return
 	 */
 	
-	public float calculateKindererziehungszuschlag() {
+	public float calculateKindererziehungszuschlag(IPension pension) {
 		float kindererziehungszuschlag = 0.0f;
 		for (Iterator<Para_50_Kindererziehungszeit> iterator = kindererziehungszeitenVor1992.iterator(); iterator.hasNext();) {
 			Para_50_Kindererziehungszeit kindererziehungszeit = (Para_50_Kindererziehungszeit) iterator.next();
-			kindererziehungszuschlag += this.kezService.calculateKindererziehungszuschlag(kindererziehungszeit);
+			kindererziehungszuschlag += this.kezService.calculateKindererziehungszuschlag(kindererziehungszeit, pension);
 		}
 		for (Iterator<Para_50_Kindererziehungszeit> iterator = kindererziehungszeitenNach1991.iterator(); iterator.hasNext();) {
 			Para_50_Kindererziehungszeit kindererziehungszeit = (Para_50_Kindererziehungszeit) iterator.next();
-			kindererziehungszuschlag += this.kezService.calculateKindererziehungszuschlag(kindererziehungszeit);
+			kindererziehungszuschlag += this.kezService.calculateKindererziehungszuschlag(kindererziehungszeit, pension);
 		}
 		
 		return kindererziehungszuschlag;
 	}
 
 	
-
-	public int getRentenwertID() {
-		return rentenwertID;
-	}
-
-
-	public void setRentenwertID(int rentenwertID) {
-		this.rentenwertID = rentenwertID;
-	}
-	
-	
-	
-
 }

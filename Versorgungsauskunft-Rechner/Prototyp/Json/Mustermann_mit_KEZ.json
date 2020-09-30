@@ -39,7 +39,7 @@
         "startDate": "Sep 1, 1976 12:00:00 AM",
         "endDate": "Aug 31, 1980 12:00:00 AM",
         "factor": 1.0,
-        "ruhegehaltsfaehigeTage": 1460,
+        "ruhegehaltsfaehigeTage": 1461,
         "comments": []
       },
       "lfdNummer": 1,
@@ -51,11 +51,11 @@
         "startDate": "Sep 1, 1980 12:00:00 AM",
         "endDate": "Jan 31, 1982 12:00:00 AM",
         "factor": 0.5,
-        "ruhegehaltsfaehigeTage": 258,
+        "ruhegehaltsfaehigeTage": 259,
         "comments": []
       },
       "lfdNummer": 2,
-      "label": "Beamtendienstzeiten nach dem 17. Lebensjahr (§6 BeamtVG)"
+      "label": null
     },
     {
       "timePeriod": {
@@ -63,7 +63,7 @@
         "startDate": "Feb 1, 1982 12:00:00 AM",
         "endDate": "Dec 31, 1992 12:00:00 AM",
         "factor": 1.0,
-        "ruhegehaltsfaehigeTage": 3985,
+        "ruhegehaltsfaehigeTage": 3984,
         "comments": []
       },
       "lfdNummer": 3,
@@ -103,7 +103,7 @@
         "comments": []
       },
       "lfdNummer": 6,
-      "label": "Beamtendienstzeiten nach dem 17. Lebensjahr (§6 BeamtVG)"
+      "label": null
     }
   ],
   "ruhegehaltsSatz": 0.0,
@@ -112,7 +112,6 @@
   "amtsunabhaengigeMindestversorgung": 0.0,
   "abzugPflegeleistung": 0.0,
   "kindererziehungsZuschlag": {
-    "aktuellerRentenwert": 34.19,
     "kindererziehungszeitenVor1992": [],
     "kindererziehungszeitenNach1991": [
       {

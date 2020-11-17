@@ -1,0 +1,1 @@
+..\..\..\Java-JRE\jre_1.8.0-131\bin\javaw.exe -Duser.language=de -Dfile.encoding=Cp1252 -classpath ".\plugins\org.eclipse.equinox.launcher_1.5.600.v20191014-2022.jar" org.eclipse.equinox.launcher.Main -product de.protin.support.pr.main.product -nl de_DE -clearPersistedState

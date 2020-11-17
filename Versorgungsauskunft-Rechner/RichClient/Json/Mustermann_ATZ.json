@@ -1,0 +1,149 @@
+{
+  "person": {
+    "name": "Mustermann",
+    "vorname": "Max",
+    "anrede": null,
+    "schwerbehindert": false,
+    "schwerbehindertBefore20001117": false,
+    "besondereAltersgrenze": false,
+    "besondereAltersgrenzeJahre": 0,
+    "dateOfBirth": "May 12, 1958 12:00:00 AM",
+    "dateOfBirthString": "12.05.1958",
+    "dateOfRetirement": "May 1, 2022 12:00:00 AM",
+    "dateOfRetirementString": "01.05.2022",
+    "dateOfRequestRetirement": null,
+    "dateOfRequestRetirementString": null,
+    "dateOfLegalRetirement": null,
+    "dateOfLegalRetirementString": null,
+    "dateOfSubstantiation": "Sep 1, 1978 12:00:00 AM",
+    "dateOfSubstantiationString": "01.09.1978",
+    "besoldung": {
+      "laufbahnOrdnung": "A",
+      "besoldungsGruppe": 12,
+      "besoldungsStufe": 8
+    },
+    "familienzuschlag": {
+      "stufe": 0,
+      "anzahlKinder": 0
+    },
+    "amtszulage": null,
+    "sonstigeZulage": null
+  },
+  "typ": 4,
+  "anzwRecht": "Bund",
+  "timePeriods": [
+    {
+      "timePeriod": {
+        "type": 2,
+        "startDate": "Sep 1, 1978 12:00:00 AM",
+        "endDate": "Aug 31, 1980 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 731,
+        "comments": []
+      },
+      "lfdNummer": 1,
+      "label": null
+    },
+    {
+      "timePeriod": {
+        "type": 3,
+        "startDate": "Sep 1, 1980 12:00:00 AM",
+        "endDate": "Jan 31, 1982 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 518,
+        "comments": []
+      },
+      "lfdNummer": 2,
+      "label": null
+    },
+    {
+      "timePeriod": {
+        "type": 1,
+        "startDate": "Feb 1, 1982 12:00:00 AM",
+        "endDate": "Dec 31, 2000 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 6904,
+        "comments": []
+      },
+      "lfdNummer": 3,
+      "label": null
+    },
+    {
+      "timePeriod": {
+        "type": 1,
+        "startDate": "Jan 1, 2001 12:00:00 AM",
+        "endDate": "Dec 31, 2004 12:00:00 AM",
+        "factor": 0.5,
+        "ruhegehaltsfaehigeTage": 730,
+        "comments": []
+      },
+      "lfdNummer": 4,
+      "label": null
+    },
+    {
+      "timePeriod": {
+        "type": 1,
+        "startDate": "Jan 1, 2005 12:00:00 AM",
+        "endDate": "Dec 31, 2015 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 4015,
+        "comments": []
+      },
+      "lfdNummer": 5,
+      "label": null
+    },
+    {
+      "timePeriod": {
+        "type": 7,
+        "startDate": "Jan 1, 2016 12:00:00 AM",
+        "endDate": "Apr 30, 2022 12:00:00 AM",
+        "factor": 0.9,
+        "ruhegehaltsfaehigeTage": 2079,
+        "comments": []
+      },
+      "lfdNummer": 6,
+      "label": null
+    }
+  ],
+  "ruhegehaltsSatz": 0.0,
+  "summeRuhegehaltsfaehigeDienstbezuege": 0.0,
+  "amtsabhaengigeMindestversorgung": 0.0,
+  "amtsunabhaengigeMindestversorgung": 0.0,
+  "abzugPflegeleistung": 0.0,
+  "kindererziehungsZuschlag": {
+    "kindererziehungszeitenVor1992": [],
+    "kindererziehungszeitenNach1991": [
+      {
+        "childName": "Anna",
+        "birthDate": "Jan 12, 1992 12:00:00 AM",
+        "legalMonths": 0,
+        "zulageMonths": 0,
+        "vollerAnspruch": false,
+        "anspruch": "Kein Anspruch nach BeamtVG (Anwartschaft in gesetzlicher RV vorhanden)",
+        "rentenwert": null,
+        "type": 6,
+        "startDate": "Feb 1, 1992 12:00:00 AM",
+        "endDate": "Feb 1, 1995 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 0,
+        "comments": []
+      },
+      {
+        "childName": "Lennard",
+        "birthDate": "Apr 16, 1994 12:00:00 AM",
+        "legalMonths": 0,
+        "zulageMonths": 0,
+        "vollerAnspruch": false,
+        "anspruch": "Kein Anspruch nach BeamtVG (Anwartschaft in gesetzlicher RV vorhanden)",
+        "rentenwert": null,
+        "type": 6,
+        "startDate": "May 1, 1994 12:00:00 AM",
+        "endDate": "May 1, 1997 12:00:00 AM",
+        "factor": 1.0,
+        "ruhegehaltsfaehigeTage": 0,
+        "comments": []
+      }
+    ]
+  },
+  "vergleichsberechnungBeamtVG_PARA_85": true
+}

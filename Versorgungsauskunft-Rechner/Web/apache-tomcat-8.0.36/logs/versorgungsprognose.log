@@ -1,0 +1,35 @@
+2021-03-17 08:09:10,437 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Initialize Log4J with PropertyConfigurator
+2021-03-17 08:09:10,437 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Application root directory is : C:\Projekte\ProtinSupport\Github\ER-Software\Versorgungsauskunft-Rechner\Web\apache-tomcat-8.0.36\bin
+2021-03-17 08:09:10,437 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter postContextCreate()
+2021-03-17 08:09:10,531 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processAdditions()
+2021-03-17 08:09:10,547 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processRemovals()
+2021-03-17 08:27:57,320 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.handlers.NewVAHandler  - Enter method 'execute()'.
+2021-03-17 08:27:57,336 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.handlers.NewVAHandler  - Exit method 'execute()'.
+2021-03-17 08:28:00,486 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.handlers.OpenVAHandler  - Enter method 'execute()'.
+2021-03-17 08:28:06,718 [UIThread [5352d38f]] INFO  de.protin.support.pr.gui.util.FileImportHandler  - try to import content from json file C:\Projekte\ProtinSupport\Github\ER-Software\Versorgungsauskunft-Rechner\Web\apache-tomcat-8.0.36\temp\fileupload_1379184437338787202\BerndMalessa_2.json
+2021-03-17 08:28:06,801 [UIThread [5352d38f]] INFO  de.protin.support.pr.rap.e4.handlers.OpenVAHandler  - Exit method 'execute()'.
+2021-03-17 08:28:11,425 [UIThread [5352d38f]] INFO  de.protin.support.pr.gui.VersorgungsprognosePart  - Versorgungsauskunft wurde berechnet und in GUI angezeigt:
+2021-03-17 08:28:11,425 [UIThread [5352d38f]] INFO  de.protin.support.pr.gui.VersorgungsprognosePart  - 
+Art der Pension: Engagierter Ruhestand
+Anzuwendenes Recht: Bund
+Person: Bernd Malessa
+Geburtsdatum: 12.07.1963
+Ruhestand geplant zum: 01.05.2020
+Errechneter Ruhegehaltssatz: 69,36
+Errechneter Ruhegehaltsfähiger Dienstbezug: 5315,55
+Errechneter Mindestversorgung - amtsabhängig: 1842,02
+Errechneter Mindestversorgung - amtsunabhängig: 1875,20
+Förderliche praktische Ausbildung (§12,2 BeamtVG)		01.08.1980 - 31.08.1981		Faktor: 1,00		Rgf-Tage: 0
+Ausbildung im Beamtenverhältnis auf Widerruf (§6 BeamtVG)		01.09.1981 - 31.08.1983		Faktor: 1,00		Rgf-Tage: 730
+Regelmäßige ruhegehaltfähige Dienstzeit (§6 BeamtVG)		01.09.1983 - 30.04.2020		Faktor: 1,00		Rgf-Tage: 13383
+
+2021-03-17 08:36:36,138 [UIThread [47a96444]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Initialize Log4J with PropertyConfigurator
+2021-03-17 08:36:36,139 [UIThread [47a96444]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Application root directory is : C:\Projekte\ProtinSupport\Github\ER-Software\Versorgungsauskunft-Rechner\Web\apache-tomcat-8.0.36\bin
+2021-03-17 08:36:36,140 [UIThread [47a96444]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter postContextCreate()
+2021-03-17 08:36:36,153 [UIThread [47a96444]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processAdditions()
+2021-03-17 08:36:36,154 [UIThread [47a96444]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processRemovals()
+2021-03-17 08:37:00,374 [UIThread [541f66aa]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Initialize Log4J with PropertyConfigurator
+2021-03-17 08:37:00,374 [UIThread [541f66aa]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - Application root directory is : C:\Projekte\ProtinSupport\Github\ER-Software\Versorgungsauskunft-Rechner\Web\apache-tomcat-8.0.36\bin
+2021-03-17 08:37:00,376 [UIThread [541f66aa]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter postContextCreate()
+2021-03-17 08:37:00,386 [UIThread [541f66aa]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processAdditions()
+2021-03-17 08:37:00,386 [UIThread [541f66aa]] INFO  de.protin.support.pr.rap.e4.LifeCyleManager  - enter processRemovals()

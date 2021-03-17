@@ -1,0 +1,1 @@
+set JRE_HOME=..\..\..\Java-JRE\jre_1.8.0-131

@@ -14,14 +14,16 @@ apache-tomcat-8.0.36
 		
 		In diesem Verzeichnis befindet sich die Version 8.0.36 des Apache Tomcat Server für das Windows-Betriebssystem. 
 		Dieser Server kann u.a. JEE konforme WAR-Archive verwalten und ausführen.
-		Der Tomcat-Server ist in der Programmiersprache Java geschrieben und benötigt dementsprechend eine Java-Runtime. Die im Github-Repo hinterlegte Java-Runtme kann dafür verwendet werden.
+		Der Tomcat-Server ist in der Programmiersprache Java geschrieben und benötigt dementsprechend eine Java-Runtime. 
+		Die im Github-Repo hinterlegte Java-Runtme kann dafür verwendet werden.
 		In der Datei "Web\apache-tomcat-8.0.36\bin\setenv.bat" wird mittels relativen Pfad auf diese Java-Runtime verwiesen.
 		Der Tomcat-Server kann mittels Batch-Skript "Web\apache-tomcat-8.0.36\bin\startup.bat" gestartet werden. 
 		Ein Stop des Server kann durch Schliessen (<STRTG + C> )der geöffneter DOS-Console(n) erfolgen.
 		Die aktuelle Web-Version des Versorgungsprognose-Rechner ist im Unterordner "apache-tomcat-8.0.36\webapps" als WAR-Archiv (demo.war) abgelegt.
 		Beim Starten des Server entpackt sich diese Datei und ein neues Unterzeichnis "demo" wird angelegt.
 		Gleichzeitig wird im Unterordner "apache-tomcat-8.0.36\work\Catalina\localhost" das Verzeichnis "demo" neu angelegt. 
-		In diesen Unterorder werden nur einmal neu angelegt und können bei manuell Bedarf gelöscht werden. Beim nächsten Neustart werden sie dann wieder neu angelegt, sofern die datei "demo.war" noch
+		In diesen Unterorder werden nur einmal neu angelegt und können bei manuell Bedarf gelöscht werden. 
+		Beim nächsten Neustart werden sie dann wieder neu angelegt, sofern die Datei "demo.war" noch
 		im Unterordner "apache-tomcat-8.0.36\webapps" vorhanden ist.
 		
 
@@ -32,7 +34,8 @@ apache-tomcat-8.0.36
 
 
 Mit dem Aufruf der URL "http://localhost:8080" kann getestet werden, ob der Tomcat-Server erfolgreich gestartet wurde und nun HTTP-Reuqest verarbeiten kann.
-Die Web-Applikation des Versorgungsprognose-Rechner wurde unter dem sog. Web-Context "demo" deployed. Für den Aufruf des Prognose-Rechner im Browser muss daher folgende URL im Browser aufgerufen werden.
+Die Web-Applikation des Versorgungsprognose-Rechner wurde unter dem sog. Web-Context "demo" deployed. Für den Aufruf des Prognose-Rechner im Browser muss daher 
+folgende URL im Browser aufgerufen werden.
 
 http://localhost:8080/demo/versorgungsprognose
 

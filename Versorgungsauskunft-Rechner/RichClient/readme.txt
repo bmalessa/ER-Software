@@ -1,3 +1,11 @@
+06.05.2021
+
+Versions-Update. Entspricht dem Stand der ersten ReleaseVersion. Siehe Beitrag im Bürgerportal vom 05.05.2021
+Synchronisation mit der Web-Applikation. Die Besoldungstabellen 2021 und 2022 wurden integriert. Für die Prognoseberechnung ist nun neben der automatischen Bestimmung der
+anzuwendenden Besoldunbstabelle (basierend auf der Eingaben in den Feldern "Eintritt in den Ruhestand zum" und "Anzuwendendes Recht") auch die expliziten Auswahl aus einer
+DropDown-Liste möglich. In dieser Liste werden alle Besoldungstablle angezeigt, die im System vorhanden sind.
+
+
 16.12.2020
 
 Versions-Update. 

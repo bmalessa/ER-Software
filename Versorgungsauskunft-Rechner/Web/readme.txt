@@ -1,12 +1,4 @@
-17.03.2021
-
-
-Deploy: 
-
-		In diesem Verzeichnis befinden sich die WAR-Archive der verschiedenen Versionen des Versorgungsprognose-Rechner. 
-		Diese WAR-Archiv beinhaltet alles, was für die Web-Version des Versorgungsprognose-Rechner benötigt wird.
-		Diese Webapplikation basieren auf dem JEE-Standard und kann in einem JEE kompatiblen Web-Conatiner deployed und ausgeführt werden.
-		
+27.05.2021
 	
 apache-tomcat-8.0.36
 	
@@ -19,14 +11,10 @@ apache-tomcat-8.0.36
 		In der Datei "Web\apache-tomcat-8.0.36\bin\setenv.bat" wird mittels relativen Pfad auf diese Java-Runtime verwiesen.
 		Der Tomcat-Server kann mittels Batch-Skript "Web\apache-tomcat-8.0.36\bin\startup.bat" gestartet werden. 
 		Ein Stop des Server kann durch Schliessen (<STRTG + C> )der geöffneter DOS-Console(n) erfolgen.
-		Die aktuelle Web-Version des Versorgungsprognose-Rechner ist im Unterordner "apache-tomcat-8.0.36\webapps" als WAR-Archiv (demo.war) abgelegt.
-		Beim Starten des Server entpackt sich diese Datei und ein neues Unterzeichnis "demo" wird angelegt.
-		Gleichzeitig wird im Unterordner "apache-tomcat-8.0.36\work\Catalina\localhost" das Verzeichnis "demo" neu angelegt. 
-		In diesen Unterorder werden nur einmal neu angelegt und können bei manuell Bedarf gelöscht werden. 
-		Beim nächsten Neustart werden sie dann wieder neu angelegt, sofern die Datei "demo.war" noch
-		im Unterordner "apache-tomcat-8.0.36\webapps" vorhanden ist.
+		Die aktuelle Web-Version des Versorgungsprognose-Rechner ist im Unterordner "apache-tomcat-8.0.36\webapps" in den Unterverzeichnissen "proT-In-Support" und "demo" abgelegt.
+		Beim ersten Start des Tomcat-Server werden im Unterordner "apache-tomcat-8.0.36\work\Catalina\localhost" die Verzeichnisse "proT-In-Support" und "demo" neu angelegt. 
+		Diese Unterorder werden nur einmal neu angelegt und können bei manuell Bedarf gelöscht werden. 
 		
-
 		Wenn der Tomcat-Server erfolgreich gestartet wurde, kann im Browser überprüft werden, ob der Server nun HTTP-Request verarbeiten kann. 
 		Per Default können nur HTTP-Request vom lokalen Rechner verarbeitet werden.
 		HTTP-Request von anderen Rechner im lokalen Netzwerk können nur nach Anpassung der Configuration verarbeitet werden.
@@ -34,10 +22,10 @@ apache-tomcat-8.0.36
 
 
 Mit dem Aufruf der URL "http://localhost:8080" kann getestet werden, ob der Tomcat-Server erfolgreich gestartet wurde und nun HTTP-Reuqest verarbeiten kann.
-Die Web-Applikation des Versorgungsprognose-Rechner wurde unter dem sog. Web-Context "demo" deployed. Für den Aufruf des Prognose-Rechner im Browser muss daher 
-folgende URL im Browser aufgerufen werden.
+Die Übersichtsseite kann mit folgender URL aufgerufen werden: http://localhost:8080/proT-In-Support
 
-http://localhost:8080/demo/versorgungsprognose
+Die Web-Applikation des Versorgungsprognose-Rechner wurde unter dem sog. Web-Context "demo" deployed. Für den Aufruf des Prognose-Rechner im Browser muss daher 
+folgende URL im Browser aufgerufen werden: http://localhost:8080/demo/versorgungsprognose
 
 
 
